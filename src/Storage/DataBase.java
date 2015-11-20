@@ -28,10 +28,11 @@ public class Database {
             table[i].setPage(iter.next());
             numOfAttributes = Integer.parseInt(iter.next());
             for(int j = 0; j < numOfAttributes; j++) {
-                table[i].getHeader().getColumns().get(j).setName(iter.next());
-                table[i].getHeader().getColumns().get(j).setType(iter.next());
-                table[i].getHeader().getColumns().get(j).setAutoincrement(iter.next());
-                table[i].getHeader().getColumns().get(j).setIndexed(iter.next());
+                Column column = table[i].getHeader().getColumns().get(j);
+                column.setName(iter.next());
+                column.setType(iter.next());
+                column.setAutoincrement(iter.next());
+                column.setIndexed(iter.next());
             }
         }
         return true;
