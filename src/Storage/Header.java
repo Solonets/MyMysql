@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by Булат on 20.11.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅ on 20.11.2015.
  */
 public class Header {
     ArrayList<Column> columns;
@@ -14,7 +14,7 @@ public class Header {
     public Header(Column[] columns) {
         this.columns = new ArrayList<Column>(Arrays.asList(columns));
     }
-    boolean conform (Tuple t)
+    public boolean conform (Tuple t)
     {
         if (this.columns.size() != t.size())
         {
@@ -28,5 +28,17 @@ public class Header {
             }
         }
         return true;
+    }
+
+    public String getMetaData() {
+        String meta = new String();
+        for(int i = 0; i < columns.size(); i++) {
+            Column column = columns.get(i);
+            meta += column.getName() + " " +
+                        column.getType() + " " +
+                            column.isAutoincrement() + " " +
+                                column.isIndexed() + " ";
+        }
+        return meta;
     }
 }

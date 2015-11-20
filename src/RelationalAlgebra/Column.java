@@ -1,11 +1,24 @@
 package RelationalAlgebra;
 
 /**
- * Created by Булат on 20.11.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅ on 20.11.2015.
  */
 public class Column {
-    String name;
-    Primitive.Type type;
+    private String name;
+    private Primitive.Type type;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setType(Primitive.Type type) {
+        this.type = type;
+    }
+
     public Column(String name, Primitive.Type type) {
         this.name = name;
         this.type = type;
