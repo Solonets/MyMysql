@@ -25,5 +25,6 @@ public class Main {
                 new Column("PublicationID", Primitive.Type.INT, false, true),
                 new Column("Type", Primitive.Type.STRING, false, false)
         }), 0, 0));
+        db.writeMetaData();
     }
 }
