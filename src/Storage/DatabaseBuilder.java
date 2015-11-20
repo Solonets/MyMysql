@@ -34,6 +34,7 @@ public class DatabaseBuilder {
         for(int i = 0; i < tables.size(); i++) {
             out.print(tables.get(i).getMetaData());
         }
+        out.close();
         return true;
     }
 }
