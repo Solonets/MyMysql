@@ -13,16 +13,22 @@ public class Column extends RelationalAlgebra.Column {
         return isAutoincrement;
     }
 
-    public void setAutoincrement(boolean autoincrement) {
-        isAutoincrement = autoincrement;
+    public void setAutoincrement(String autoincrement) {
+        if(autoincrement.equals("true"))
+            isAutoincrement = true;
+        else
+            isAutoincrement = false;
     }
 
     public boolean isIndexed() {
         return isIndexed;
     }
 
-    public void setIndexed(boolean indexed) {
-        isIndexed = indexed;
+    public void setIndexed(String indexed) {
+        if(indexed.equals("true"))
+            isIndexed = true;
+        else
+            isIndexed = false;
     }
 
     public Column(String name, Primitive.Type type, boolean isAutoincrement, boolean isIndexed) {

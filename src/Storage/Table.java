@@ -11,6 +11,14 @@ public class Table {
     private int lastAutoincrement = 0;
     private int page;
 
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = Integer.parseInt(page);
+    }
+
     public String getName() {
         return name;
     }
@@ -31,8 +39,8 @@ public class Table {
         return lastAutoincrement;
     }
 
-    public void setLastAutoincrement(int lastAutoincrement) {
-        this.lastAutoincrement = lastAutoincrement;
+    public void setLastAutoincrement(String lastAutoincrement) {
+        this.lastAutoincrement = Integer.parseInt(lastAutoincrement);
     }
 
     public Table(String name, Header header, int lastAutoincrement, int page) {
@@ -43,6 +51,6 @@ public class Table {
     }
 
     public String getMetaData() {
-        return name + " " + lastAutoincrement + " " + page + " " + header.getMetaData();
+        return name + " " + lastAutoincrement + " " + page + " " + header.getMetaData() + " $ ";
     }
 }

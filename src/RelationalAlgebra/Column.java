@@ -15,8 +15,16 @@ public class Column {
         this.name = name;
     }
 
-    public void setType(Primitive.Type type) {
-        this.type = type;
+    public void setType(String type) {
+        if(type.equals(Primitive.Type.INT)) {
+            this.type = Primitive.Type.INT;
+        }
+        else if(type.equals(Primitive.Type.REAL)) {
+            this.type = Primitive.Type.REAL;
+        }
+        else {
+            this.type = Primitive.Type.STRING;
+        }
     }
 
     public Column(String name, Primitive.Type type) {

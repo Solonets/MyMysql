@@ -11,6 +11,14 @@ import java.util.Arrays;
 public class Header {
     ArrayList<Column> columns;
 
+    public ArrayList<Column> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(ArrayList<Column> columns) {
+        this.columns = columns;
+    }
+
     public Header(Column[] columns) {
         this.columns = new ArrayList<Column>(Arrays.asList(columns));
     }
@@ -34,10 +42,11 @@ public class Header {
         String meta = new String();
         for(int i = 0; i < columns.size(); i++) {
             Column column = columns.get(i);
-            meta += column.getName() + " " +
-                        column.getType() + " " +
-                            column.isAutoincrement() + " " +
-                                column.isIndexed() + " ";
+            meta += columns.size() + " " +
+                        column.getName() + " " +
+                            column.getType() + " " +
+                                column.isAutoincrement() + " " +
+                                    column.isIndexed() + " ";
         }
         return meta;
     }
