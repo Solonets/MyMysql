@@ -45,7 +45,7 @@ public class RAMSet extends Set{
     }
     public RAMSet limit(int n) {
         RAMSet set = new RAMSet(getHeader());
-        for(int i =0; i < n; i++) {
+        for(int i = 0; i < n; i++) {
             set.getTuples().add(getTuples().get((i)));
         }
         return set;
@@ -67,13 +67,13 @@ public class RAMSet extends Set{
         Column column;
         Tuple tuple;
         Header resHeader;
-        ArrayList<Tuple> tuples = new ArrayList<Tuple>();
+        ArrayList<Tuple> resTuples = new ArrayList<Tuple>();
         ArrayList<Integer> indexes = new ArrayList<Integer>();
         Column[] resColumns = new Column[columns.length];
         for(int i = 0; i < columns.length; i++) {
             for(int j = 0; j < header.getColumns().size(); j++) {
                 Column resColumn = header.getColumns().get(j);
-                if(columns[i].equals(resColumn)) {
+                if(columns[i].equals(resColumn.getName())) {
                     column = new Column(resColumn.getName(), resColumn.getType());
                     resColumns[j] = column;
                     indexes.add(j);
@@ -85,11 +85,11 @@ public class RAMSet extends Set{
             for(int j = 0; j < indexes.size(); j++) {
                 tuple.add(tuples.get(i).get(indexes.get(j)));
             }
-            tuples.add(tuple);
+            resTuples.add(tuple);
         }
         resHeader = new Header(resColumns);
         set = new RAMSet(resHeader);
-        set.setTuples(tuples);
+        set.setTuples(resTuples);
         return set;
     }
 }
