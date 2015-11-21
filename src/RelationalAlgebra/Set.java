@@ -11,13 +11,16 @@ public abstract class Set {
         RAMSet s = limit(10);
         int numOfAttributes = s.getHeader().getColumns().size();
         Integer[] maxLength = new Integer[numOfAttributes];
-        String resString = null;
+        String resString = "";
         for(int i = 0; i < s.getHeader().getColumns().size(); i++) {
             String name = s.getHeader().getColumns().get(i).getName();
-            resString = name;
+            resString += name;
             maxLength[i] = s.findMaxWordLength(i);
-            for(int j = name.length(); j < maxLength[i]; j++) {
-                resString += " ";
+            for(int j = name.length(); j <= maxLength[i]; j++) {
+                if(j == maxLength[i]) {
+                    resString += "|";
+                }
+                else {resString += " ";}
             }
         }
         resString += "\n";
