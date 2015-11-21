@@ -1,8 +1,6 @@
 package Storage;
 
-import RelationalAlgebra.RAMSet;
-import RelationalAlgebra.Set;
-import RelationalAlgebra.Tuple;
+import RelationalAlgebra.*;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
@@ -33,18 +31,6 @@ public class Table extends Set {
 
     public int getCurPage() {
         return curPage;
-    }
-
-    public void setCurPage(String curPage) {
-        this.curPage = Integer.parseInt(curPage);
-    }
-
-    public int getStartPage() {
-        return startPage;
-    }
-
-    public void setStartPage(String startPage) {
-        this.startPage = Integer.parseInt(startPage);
     }
 
     public String getName() {
@@ -161,6 +147,26 @@ public class Table extends Set {
             while((t = page.fetch(header.toRA())) != null)
             {
                 set.add(t);
+            }
+            cur = page.getNext();
+        }
+        return set;
+    }
+
+    @Override
+    public RAMSet selection(Condition condition) {
+        int cur = startPage;
+        RelationalAlgebra.Header h = header.toRA();
+        RAMSet set = new RAMSet(h);
+        Tuple t = null;
+        while (cur != -1)
+        {
+            Page page = db.loadPage(cur);
+            while((t = page.fetch(h)) != null)
+            {
+                if (condition.match(h, t)) {
+                    set.add(t);
+                }
             }
             cur = page.getNext();
         }

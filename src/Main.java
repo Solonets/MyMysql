@@ -8,11 +8,16 @@ import java.util.jar.Attributes;
 
 public class Main {
     public static void main(String[] args) {
-        //clear();
+        clear();
         Database d = new Database("mydblp");
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(1), new RAString("Sergey Solonets"), new RAInteger(3)}));
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(2), new RAString("Hellos"), new RAInteger(3)}));
-        System.out.print(d.getTable("Alias").all().projection(new String[]{"ID", "Alias"}));
+        System.out.print(d.getTable("Alias").selection(new Condition() {
+            @Override
+            public boolean expr() {
+                return get("ID").equals(1);
+            }
+        }));
         d.close();
         //d.getTable("Alias")
     }

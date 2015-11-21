@@ -43,7 +43,8 @@ public class RAString extends Primitive {
     public Primitive plus(Primitive other) {
         return new RAString(value + ((RAString)other).getValue());
     }
-
+    @Override
+    public boolean equals(String s) {return value.equals(s);}
     @Override
     public byte[] getDump() {
         try {
