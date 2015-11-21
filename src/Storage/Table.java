@@ -1,5 +1,6 @@
 package Storage;
 
+import Expressions.Condition;
 import RelationalAlgebra.*;
 
 import java.io.ByteArrayOutputStream;
@@ -166,5 +167,9 @@ public class Table extends Set {
             cur = page.getNext();
         }
         return set;
+    }
+    public void buildIndexes()
+    {
+
     }
 }

@@ -22,7 +22,7 @@ public class Header {
     public Header(Column[] columns) {
         this.columns = new ArrayList<Column>(Arrays.asList(columns));
     }
-    boolean conform (Tuple t)
+    public boolean conform (Tuple t)
     {
         if (this.columns.size() != t.size())
         {

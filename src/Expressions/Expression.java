@@ -1,4 +1,8 @@
-package RelationalAlgebra;
+package Expressions;
+
+import RelationalAlgebra.Header;
+import RelationalAlgebra.Primitive;
+import RelationalAlgebra.Tuple;
 
 /**
  * Created by Булат on 21.11.2015.

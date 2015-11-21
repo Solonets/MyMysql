@@ -1,4 +1,8 @@
-package RelationalAlgebra;
+package Expressions;
+
+import RelationalAlgebra.Header;
+import RelationalAlgebra.Primitive;
+import RelationalAlgebra.Tuple;
 
 /**
  * Created by Булат on 21.11.2015.
@@ -21,10 +25,6 @@ public abstract class Condition {
     public boolean match(Header header, Tuple tuple) {
         this.header = header;
         this.tuple = tuple;
-        if (!header.conform(tuple))
-        {
-            return false;
-        }
-        return expr();
+        return header.conform(tuple) && expr();
     }
 }

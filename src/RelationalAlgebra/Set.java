@@ -1,5 +1,8 @@
 package RelationalAlgebra;
 
+import Expressions.Condition;
+import Expressions.Expression;
+
 import java.util.ArrayList;
 
 /**
