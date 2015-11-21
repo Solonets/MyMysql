@@ -49,7 +49,7 @@ public class Page {
         this.offsets = new ArrayList<>();
         for (int i = 0; i < records; i++)
         {
-            db.seekToPage(id, Database.Location.END, -4 * (records + 2 + id));
+            db.seekToPage(id, Database.Location.END, -4 * (3 + i));
             this.offsets.add((long)db.readInt());
         }
     }

@@ -6,6 +6,7 @@ import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by ����� on 20.11.2015.
@@ -44,8 +45,9 @@ public class RAString extends Primitive {
             stream.read(bytes);
             int length = ByteBuffer.wrap(bytes).getInt();
             byte[] str = new byte[length];
-            stream.read(bytes);
-            return new RAString(new String(bytes));
+            stream.read(str);
+            String s = new String(str, StandardCharsets.UTF_8);
+            return new RAString(s);
         } catch (Exception e)
         {
             return null;
