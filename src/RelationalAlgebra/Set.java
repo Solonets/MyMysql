@@ -36,4 +36,5 @@ public abstract class Set {
         RAMSet set = all();
         return set;
      }
+    public abstract RAMSet selection(Set set, Expression condition);
 }
