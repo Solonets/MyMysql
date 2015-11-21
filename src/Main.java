@@ -17,17 +17,7 @@ public class Main {
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(6), new RAString("Kisa72"), new RAInteger(3)}));
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(7), new RAString("Moons"), new RAInteger(2)}));
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(3), new RAString("Moon"), new RAInteger(3)}));
-        System.out.print(d.getTable("Alias").sort(new Expression[]{new Expression() {
-            @Override
-            public String name() {
-                return "CID";
-            }
-
-            @Override
-            public Primitive expr() {
-                return get("Alias");
-            }
-        }, new Expression() {
+        System.out.print(d.getTable("Alias").sort(new Expression[]{ new Expression() {
             @Override
             public String name() {
                 return "NNNName";
@@ -37,7 +27,7 @@ public class Main {
             public Primitive expr() {
                 return get("ID");
             }
-        }}, new Expression.Order[]{Expression.Order.ASC, Expression.Order.DESC}));
+        }}, new Expression.Order[]{Expression.Order.ASC}));
         d.close();
         //d.getTable("Alias")
     }

@@ -37,13 +37,15 @@ public abstract class Set {
         RAMSet set = all();
         int j = 0;
         Tuple tmp;
-        Primitive p1 = expressions[j].calc(set.getHeader(), set.getTuples().get(j));
-        Primitive p2 = expressions[j].calc(set.getHeader(), set.getTuples().get(j + 1));
-        for(int k = 0; k < set.getTuples().size(); k++) {
-            for (int i = 0; i < set.getTuples().size() - k; i++) {
+        Primitive p1;
+        Primitive p2;
+        for(int k = 0; k < set.getTuples().size() - 1; k++) {
+            for (int i = 0; i < set.getTuples().size() - k - 1; i++) {
                 Tuple tuple1 = set.getTuples().get(i);
                 Tuple tuple2 = set.getTuples().get(i + 1);
-                while (p1.equals(p2)) {
+                p1 = expressions[j].calc(set.getHeader(), tuple1);
+                p2 = expressions[j].calc(set.getHeader(), tuple2);
+                while (p1.equals(p2) && j + 1 < expressions.length) {
                     j++;
                     p1 = expressions[j].calc(set.getHeader(), tuple1);
                     p2 = expressions[j].calc(set.getHeader(), tuple2);
