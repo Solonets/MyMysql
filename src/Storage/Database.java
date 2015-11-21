@@ -53,7 +53,7 @@ public class Database {
             this.tables.add(t);
         }
         dataOffset = this.tell();
-        this.buildIndexes();
+        //this.buildIndexes();
         //System.out.print(dataOffset);
     }
     public byte[] readDynamicBlob()
