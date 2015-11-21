@@ -19,7 +19,7 @@ public class Main {
             }
 
             @Override
-            public Primitive expr(RelationalAlgebra.Header header, Tuple tuple) {
+            public Primitive expr() {
                 return get("ID").plus(get("PersonID"));
             }
         }, new Expression() {
@@ -29,8 +29,8 @@ public class Main {
             }
 
             @Override
-            public Primitive expr(RelationalAlgebra.Header header, Tuple tuple) {
-                return get("Name");
+            public Primitive expr() {
+                return get("Alias");
             }
         }}));
         d.close();

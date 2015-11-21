@@ -18,5 +18,11 @@ public abstract class Expression {
         return null;
     }
     public abstract String name();
-    public abstract Primitive expr(Header header, Tuple tuple);
+    public Primitive calc(Header header, Tuple tuple)
+    {
+        this.header = header;
+        this.tuple = tuple;
+        return expr();
+    }
+    public abstract Primitive expr();
 }
