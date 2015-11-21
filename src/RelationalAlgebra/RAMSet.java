@@ -39,17 +39,24 @@ public class RAMSet {
         }
         return false;
     }
-    public String toString()
-    {
-        StringBuilder str = new StringBuilder("{");
-        for (Tuple a: tuples)
-        {
-            str.append(a);
-            str.append(", ");
+
+    public RAMSet limit(int n) {
+        RAMSet set = new RAMSet(getHeader());
+        for(int i =0; i < n; i++) {
+            set.getTuples().add(getTuples().get((i)));
         }
-        str.delete(str.length() - 2, str.length());
-        str.append("}");
-        return str.toString();
+        return set;
+    }
+
+    public int findMaxWordLength(int i) {
+        int maxLength = header.getColumns().get(i).getName().length();
+        for(int j = 0; j < tuples.size(); j++) {
+            int length = tuples.get(j).get(i).getDisplayedValue().length();
+            if(length > maxLength) {
+                maxLength = length;
+            }
+        }
+        return maxLength;
     }
 
     public RAMSet projection(String[] columns) {
