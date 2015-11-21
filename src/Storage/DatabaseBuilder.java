@@ -1,6 +1,8 @@
 package Storage;
 
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 /**
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 public class DatabaseBuilder {
     String name;
     ArrayList<Table> tables;
+    RandomAccessFile out;
 
     public DatabaseBuilder(String name) {
         this.name = name;
@@ -24,17 +27,23 @@ public class DatabaseBuilder {
     }
     public boolean writeMetaData()
     {
-        PrintWriter out = null;
         try {
-            out = new PrintWriter(getFileName());
-        } catch (Exception e) {
+            int PagesSize = 4096;
+            int numberOfPages = 0;
+            out = new RandomAccessFile(this.getFileName(), "rw");
+            out.write(ByteBuffer.allocate(4).putInt(PagesSize).array());
+            out.write(ByteBuffer.allocate(4).putInt(numberOfPages).array());
+            out.write(ByteBuffer.allocate(4).putInt(tables.size()).array());
+            for (Table t: this.tables)
+            {
+                out.write(t.getMetaData());
+            }
+            out.close();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
             return false;
         }
-        out.print(tables.size() + " ");
-        for(int i = 0; i < tables.size(); i++) {
-            out.print(tables.get(i).getMetaData());
-        }
-        out.close();
         return true;
     }
 }
