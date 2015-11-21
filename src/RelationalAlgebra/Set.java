@@ -33,8 +33,29 @@ public abstract class Set {
         return resString;
     }
 
-    public RAMSet sort(Expression[] expressions, Expression.Order orders) {
+    public RAMSet sort(Expression[] expressions, Expression.Order[] orders) {
         RAMSet set = all();
+        int j = 0;
+        Tuple tmp;
+        Primitive p1 = expressions[j].calc(set.getHeader(), set.getTuples().get(j));
+        Primitive p2 = expressions[j].calc(set.getHeader(), set.getTuples().get(j + 1));
+        for(int k = 0; k < set.getTuples().size(); k++) {
+            for (int i = 0; i < set.getTuples().size() - k; i++) {
+                Tuple tuple1 = set.getTuples().get(i);
+                Tuple tuple2 = set.getTuples().get(i + 1);
+                while (p1.equals(p2)) {
+                    j++;
+                    p1 = expressions[j].calc(set.getHeader(), tuple1);
+                    p2 = expressions[j].calc(set.getHeader(), tuple2);
+                }
+                if (p1.greater(p2) && orders[j] == Expression.Order.ASC ||
+                        p2.greater(p1) && orders[j] == Expression.Order.DESC) {
+                    tmp = tuple1;
+                    set.getTuples().set(i, tuple2);
+                    set.getTuples().set(i + 1, tmp);
+                }
+            }
+        }
         return set;
      }
     public abstract RAMSet selection(Condition condition);
