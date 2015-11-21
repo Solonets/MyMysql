@@ -170,6 +170,24 @@ public class Table extends Set {
     }
     public void buildIndexes()
     {
-
+        int cur = startPage;
+        RelationalAlgebra.Header h = header.toRA();
+        RAMSet set = new RAMSet(h);
+        Tuple t = null;
+        while (cur != -1)
+        {
+            Page page = db.loadPage(cur);
+            while((t = page.fetch(h)) != null)
+            {
+                for (int i = 0; i < header.getColumns().size(); i++)
+                {
+                    if (header.getColumns().get(i).isIndexed())
+                    {
+                        header.getColumns().get(i).pushAddress(t.get(i), new Address(page.getId(), page.getCurrentSlot()));
+                    }
+                }
+            }
+            cur = page.getNext();
+        }
     }
 }

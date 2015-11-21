@@ -8,15 +8,15 @@ import Storage.Header;
 
 public class Main {
     public static void main(String[] args) {
-        clear();
+        //clear();
         Database d = new Database("mydblp");
-        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(5), new RAString("Sergey Solonets"), new RAInteger(3)}));
+        /*d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(5), new RAString("Sergey Solonets"), new RAInteger(3)}));
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(1), new RAString("Kisa7"), new RAInteger(3)}));
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(5), new RAString("Moon"), new RAInteger(2)}));
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(2), new RAString("Moon"), new RAInteger(3)}));
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(6), new RAString("Kisa72"), new RAInteger(3)}));
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(7), new RAString("Moons"), new RAInteger(2)}));
-        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(3), new RAString("Moon"), new RAInteger(3)}));
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(3), new RAString("Moon"), new RAInteger(3)}));*/
         System.out.print(d.getTable("Alias").sort(new Expression[]{
             new ColumnExpression("PersonID"), new ColumnExpression("ID")
         }, new Expression.Order[]{Expression.Order.ASC, Expression.Order.ASC}));

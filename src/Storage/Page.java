@@ -85,6 +85,11 @@ public class Page {
         currentSlot++;
         return t;
     }
+
+    public int getCurrentSlot() {
+        return currentSlot;
+    }
+
     public void restore()
     {
         currentSlot = 0;

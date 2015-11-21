@@ -1,5 +1,6 @@
 package Storage;
 
+import Index.BTree;
 import RelationalAlgebra.Primitive;
 
 import java.io.ByteArrayOutputStream;
@@ -11,6 +12,7 @@ import java.nio.ByteBuffer;
 public class Column extends RelationalAlgebra.Column {
     private boolean isAutoincrement;
     private boolean isIndexed;
+    private BTree<Primitive, Address> index = null;
 
     public boolean isAutoincrement() {
         return isAutoincrement;
@@ -33,11 +35,18 @@ public class Column extends RelationalAlgebra.Column {
         else
             isIndexed = false;
     }
-
+    public void pushAddress(Primitive p, Address address)
+    {
+        index.insert(p, address);
+    }
     public Column(String name, Primitive.Type type, boolean isAutoincrement, boolean isIndexed) {
         super(name, type);
         this.isAutoincrement = isAutoincrement;
         this.isIndexed = isIndexed;
+        if (this.isIndexed)
+        {
+            index = new BTree<>();
+        }
     }
     public byte[] getMetaData() {
         try {
