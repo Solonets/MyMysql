@@ -51,7 +51,7 @@ public abstract class Set {
         for(int i = 0; i < set.getTuples().size(); i++) {
             tuple = new Tuple();
             for(int j = 0; j < expressions.length; j++) {
-                p = expressions[j].expr(set.getHeader(), set.getTuples().get(i));
+                p = expressions[j].calc(set.getHeader(), set.getTuples().get(i));
                 if(i == 0) {
                     types[j] = p.getType();
                 }
