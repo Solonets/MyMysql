@@ -8,16 +8,31 @@ import java.util.jar.Attributes;
 
 public class Main {
     public static void main(String[] args) {
-        clear();
+        //clear();
         Database d = new Database("mydblp");
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(1), new RAString("Sergey Solonets"), new RAInteger(3)}));
         d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(2), new RAString("Hellos"), new RAInteger(3)}));
-        System.out.print(d.getTable("Alias").selection(new Condition() {
+        System.out.print(d.getTable("Alias").projection(new Expression[]{new Expression() {
             @Override
-            public boolean expr() {
-                return get("ID").equals(1);
+            public String name() {
+                return "CID";
             }
-        }));
+
+            @Override
+            public Primitive expr(RelationalAlgebra.Header header, Tuple tuple) {
+                return get("ID").plus(get("PersonID"));
+            }
+        }, new Expression() {
+            @Override
+            public String name() {
+                return "NNNName";
+            }
+
+            @Override
+            public Primitive expr(RelationalAlgebra.Header header, Tuple tuple) {
+                return get("Name");
+            }
+        }}));
         d.close();
         //d.getTable("Alias")
     }

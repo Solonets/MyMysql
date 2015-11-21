@@ -115,11 +115,6 @@ public class Table extends Set {
     }
 
     @Override
-    public RAMSet projection(String[] columns) {
-        return null;
-    }
-
-    @Override
     public RAMSet limit(int n) {
         int cur = startPage;
         RAMSet set = new RAMSet(header.toRA());
