@@ -137,6 +137,6 @@ public class Table extends Set {
     public RAMSet limit(int n) {
         int cur = startPage;
         RAMSet set = new RAMSet(header.toRA());
-        return null;
+        return set;
     }
 }
