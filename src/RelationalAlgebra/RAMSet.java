@@ -39,7 +39,10 @@ public class RAMSet {
         }
         return false;
     }
-
+    public RAMSet all()
+    {
+        return this;
+    }
     public RAMSet limit(int n) {
         RAMSet set = new RAMSet(getHeader());
         for(int i =0; i < n; i++) {

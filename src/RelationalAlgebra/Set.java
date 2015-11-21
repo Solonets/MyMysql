@@ -7,6 +7,7 @@ public abstract class Set {
     public abstract boolean add(Tuple t);
     public abstract RAMSet projection(String[] columns);
     public abstract RAMSet limit(int n);
+    public abstract RAMSet all();
     public String toString() {
         RAMSet s = limit(10);
         int numOfAttributes = s.getHeader().getColumns().size();

@@ -151,4 +151,19 @@ public class Table extends Set {
         }
         return set;
     }
+    public RAMSet all() {
+        int cur = startPage;
+        RAMSet set = new RAMSet(header.toRA());
+        Tuple t = null;
+        while (cur != -1)
+        {
+            Page page = db.loadPage(cur);
+            while((t = page.fetch(header.toRA())) != null)
+            {
+                set.add(t);
+            }
+            cur = page.getNext();
+        }
+        return set;
+    }
 }
