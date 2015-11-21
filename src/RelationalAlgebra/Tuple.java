@@ -30,12 +30,16 @@ public class Tuple {
     }
 
     public String showTuple(Integer[] maxLength) {
-        String resString = null;
+        String resString = "";
         for(int i = 0; i < primitives.size(); i++) {
             String value = primitives.get(i).getDisplayedValue();
             resString += value;
-            for(int j = value.length(); j < maxLength[i]; j++) {
-                resString += " ";
+            for(int j = value.length(); j <= maxLength[i]; j++) {
+                if (j == maxLength[i]) {
+                    resString += "|";
+                } else {
+                    resString += " ";
+                }
             }
         }
         resString += "\n";
