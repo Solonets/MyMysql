@@ -6,6 +6,9 @@ package RelationalAlgebra;
 public abstract class Expression {
     Header header;
     Tuple tuple;
+    public static enum Order{
+        ASC, DESC;
+    }
     public Primitive get(String name)
     {
         for (int i = 0; i < header.getColumns().size(); i++)

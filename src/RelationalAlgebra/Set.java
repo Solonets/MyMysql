@@ -33,7 +33,7 @@ public abstract class Set {
         return resString;
     }
 
-    public RAMSet sort(String[] attributes, boolean[] isIncrementing) {
+    public RAMSet sort(Expression[] expressions, Expression.Order orders) {
         RAMSet set = all();
         return set;
      }
