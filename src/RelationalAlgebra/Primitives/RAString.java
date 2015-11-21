@@ -2,8 +2,11 @@ package RelationalAlgebra.Primitives;
 
 import RelationalAlgebra.Primitive;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
+
 /**
- * Created by Булат on 20.11.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅ on 20.11.2015.
  */
 public class RAString extends Primitive {
     private String value;
@@ -18,6 +21,19 @@ public class RAString extends Primitive {
     @Override
     public Type getType() {
         return Type.STRING;
+    }
+    @Override
+    public byte[] getDump() {
+        try {
+            ByteArrayOutputStream buf = new ByteArrayOutputStream();
+            buf.write(ByteBuffer.allocate(4).putInt(value.length()).array());
+            buf.write(value.getBytes());
+            return buf.toByteArray();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

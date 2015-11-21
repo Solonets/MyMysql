@@ -1,5 +1,7 @@
 package RelationalAlgebra;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -33,5 +35,20 @@ public class Tuple {
     public Primitive get(int i)
     {
         return primitives.get(i);
+    }
+    public byte[] getDump()
+    {
+        try {
+            ByteArrayOutputStream buf = new ByteArrayOutputStream();
+            for (Primitive p: this.primitives)
+            {
+                buf.write(p.getDump());
+            }
+            return buf.toByteArray();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -16,6 +16,7 @@ public class Table extends Set {
     private int lastAutoincrement = 0;
     private int startPage;
     private int curPage;
+    private Database db;
     private long startPagePos = -1;
 
     public long getStartPagePos() {
@@ -26,6 +27,9 @@ public class Table extends Set {
         this.startPagePos = startPagePos;
     }
 
+    public void setDb(Database db) {
+        this.db = db;
+    }
 
     public int getCurPage() {
         return curPage;
@@ -91,7 +95,13 @@ public class Table extends Set {
             return null;
         }
     }
-
+    public void rewriteStatistics()
+    {
+        db.seek(startPagePos);
+        db.writeInt(startPage);
+        db.writeInt(curPage);
+        db.writeInt(lastAutoincrement);
+    }
     @Override
     public String toString() {
         return this.name;
@@ -99,7 +109,27 @@ public class Table extends Set {
 
     @Override
     public boolean add(Tuple t) {
-        return false;
+        if (!header.conform(t))
+        {
+            return false;
+        }
+        Page page = null;
+        if (this.curPage < 0)
+        {
+            page = db.allocateNewPage(-1);
+            startPage = curPage = page.getId();
+        }
+        else
+        {
+            page = db.loadPage(curPage);
+        }
+        while (!page.insert(t))
+        {
+            page = db.allocateNewPage(page.getId());
+            curPage = page.getId();
+        }
+        this.rewriteStatistics();
+        return true;
     }
 
     @Override

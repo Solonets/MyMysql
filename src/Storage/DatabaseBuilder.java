@@ -28,7 +28,7 @@ public class DatabaseBuilder {
     public boolean writeMetaData()
     {
         try {
-            int PagesSize = 4096;
+            int PagesSize = 256;
             int numberOfPages = 0;
             out = new RandomAccessFile(this.getFileName(), "rw");
             out.write(ByteBuffer.allocate(4).putInt(PagesSize).array());

@@ -8,6 +8,15 @@ import java.util.jar.Attributes;
 
 public class Main {
     public static void main(String[] args) {
+        //clear();
+        Database d = new Database("mydblp");
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(1), new RAString("Hello"), new RAInteger(3)}));
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(2), new RAString("Hellos"), new RAInteger(3)}));
+        d.close();
+        //d.getTable("Alias")
+    }
+    public static void clear()
+    {
         DatabaseBuilder db = new DatabaseBuilder("mydblp");
         db.add(new Table("Alias", new Header(new Column[]{
                 new Column("ID", Primitive.Type.INT, true, true),
@@ -128,6 +137,5 @@ public class Main {
                 new Column("Photo", Primitive.Type.STRING, false, false)
         }), 0, -1, -1));
         db.writeMetaData();
-        Database d = new Database("mydblp");
     }
 }

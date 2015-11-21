@@ -1,6 +1,7 @@
 package Storage;
 
 import RelationalAlgebra.Primitive;
+import javafx.scene.control.Tab;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -43,14 +44,81 @@ public class Database {
                 int isAutoIncrement = this.readByte();
                 int isIndexed = this.readByte();
                 Column c = new Column(columnName, type, isAutoIncrement == 1, isIndexed == 1);
-                columns[i] = c;
+                columns[j] = c;
             }
             Header header = new Header(columns);
             Table t = new Table(tableName, header, lastAutoincrement, startPage, curPage);
+            t.setDb(this);
             t.setStartPagePos(startPagePos);
+            this.tables.add(t);
         }
         dataOffset = this.tell();
-        this.close();
+        System.out.print(dataOffset);
+    }
+    public int getPageSize() {
+        return pageSize;
+    }
+    public void writeBlob(byte[] b)
+    {
+        try
+        {
+            f.write(b);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void writeInt(int num)
+    {
+        try
+        {
+            f.write(ByteBuffer.allocate(4).putInt(num).array());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void writeByte(int num)
+    {
+        try
+        {
+            f.write(num);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void seekToPage(int id)
+    {
+        this.seek(dataOffset + id * pageSize);
+    }
+    public void seekToPage(int id, Location location, int offset)
+    {
+        this.seek(dataOffset + id * pageSize + offset + (location == Location.END ? pageSize : 0));
+    }
+    public Page allocateNewPage(int after)
+    {
+        if (after >= 0)
+        {
+            this.seekToPage(after);
+            this.writeInt(pagesNum);
+        }
+        Page p = new Page(pagesNum, -1, this);
+        p.clean();
+        pagesNum++;
+        this.seek(4);
+        this.writeInt(pagesNum);
+        return p;
+    }
+    public void seek(long pos)
+    {
+        try {
+            f.seek(pos);
+        }
+        catch (Exception e)
+        {
+            return;
+        }
+    }
+    public enum Location{
+        START, END;
     }
     public int readByte()
     {
@@ -81,6 +149,12 @@ public class Database {
         {
             e.printStackTrace();
         }
+    }
+    public Page loadPage(int id)
+    {
+        Page page = new Page(id, 0, this);
+        page.reload();
+        return page;
     }
     public void close()
     {
@@ -114,6 +188,17 @@ public class Database {
         {
             return 0;
         }
+    }
+    public Table getTable(String name)
+    {
+        for (Table t: this.tables)
+        {
+            if (t.getName().equals(name))
+            {
+                return t;
+            }
+        }
+        return null;
     }
     public String getFileName()
     {

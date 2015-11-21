@@ -26,4 +26,5 @@ public abstract class Primitive {
     }
     public abstract String getDisplayedValue();
     public abstract Type getType();
+    public abstract byte[] getDump();
 }
