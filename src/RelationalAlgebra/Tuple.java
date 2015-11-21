@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by Булат on 20.11.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅ on 20.11.2015.
  */
 public class Tuple {
     ArrayList<Primitive> primitives;
@@ -12,6 +12,8 @@ public class Tuple {
     {
         this.primitives = new ArrayList<Primitive>(Arrays.asList(primitives));
     }
+    public Tuple(){this.primitives = new ArrayList<Primitive>();}
+    public void add(Primitive p) { this.primitives.add(p);}
     public String toString()
     {
         StringBuilder str = new StringBuilder("(");

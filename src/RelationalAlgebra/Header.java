@@ -6,10 +6,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by Булат on 20.11.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅ on 20.11.2015.
  */
 public class Header {
     ArrayList<Column> columns;
+
+    public ArrayList<Column> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(ArrayList<Column> columns) {
+        this.columns = columns;
+    }
 
     public Header(Column[] columns) {
         this.columns = new ArrayList<Column>(Arrays.asList(columns));
