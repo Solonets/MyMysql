@@ -25,7 +25,8 @@ public class Database {
             iter = new Scanner(tables[i]);
             table[i].setName(iter.next());
             table[i].setLastAutoincrement(iter.next());
-            table[i].setPage(iter.next());
+            table[i].setStartPage(iter.next());
+            table[i].setCurPage(iter.next());
             numOfAttributes = Integer.parseInt(iter.next());
             for(int j = 0; j < numOfAttributes; j++) {
                 Column column = table[i].getHeader().getColumns().get(j);

@@ -1,7 +1,5 @@
 package Storage;
 
-import Storage.Header;
-
 /**
  * Created by ����� on 20.11.2015.
  */
@@ -9,14 +7,23 @@ public class Table {
     private String name;
     private Header header;
     private int lastAutoincrement = 0;
-    private int page;
+    private int startPage;
+    private int curPage;
 
-    public int getPage() {
-        return page;
+    public int getCurPage() {
+        return curPage;
     }
 
-    public void setPage(String page) {
-        this.page = Integer.parseInt(page);
+    public void setCurPage(String curPage) {
+        this.curPage = Integer.parseInt(curPage);
+    }
+
+    public int getStartPage() {
+        return startPage;
+    }
+
+    public void setStartPage(String startPage) {
+        this.startPage = Integer.parseInt(startPage);
     }
 
     public String getName() {
@@ -43,14 +50,15 @@ public class Table {
         this.lastAutoincrement = Integer.parseInt(lastAutoincrement);
     }
 
-    public Table(String name, Header header, int lastAutoincrement, int page) {
+    public Table(String name, Header header, int lastAutoincrement, int startPage, int curPage) {
         this.name = name;
         this.header = header;
         this.lastAutoincrement = lastAutoincrement;
-        this.page = page;
+        this.startPage = startPage;
+        this.curPage = curPage;
     }
 
     public String getMetaData() {
-        return name + " " + lastAutoincrement + " " + page + " " + header.getMetaData() + " $ ";
+        return name + " " + lastAutoincrement + " " + startPage + " " + curPage + " " + header.getMetaData() + " $ ";
     }
 }
