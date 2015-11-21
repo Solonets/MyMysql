@@ -48,12 +48,12 @@ public abstract class Set {
         Column[] columns = new Column[expressions.length];
         ArrayList<Tuple> tuples = new ArrayList<Tuple>();
         for(int i = 0; i < set.getTuples().size(); i++) {
+            tuple = new Tuple();
             for(int j = 0; j < expressions.length; j++) {
-                tuple = new Tuple();
                 p = expressions[j].expr(set.getHeader(), set.getTuples().get(i));
                 tuple.add(p);
-                tuples.add(tuple);
             }
+            tuples.add(tuple);
         }
         for(int i = 0; i < expressions.length; i++) {
             column = new Column(expressions[i].name(), Primitive.Type.STRING);
