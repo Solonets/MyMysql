@@ -8,11 +8,16 @@ import java.util.jar.Attributes;
 
 public class Main {
     public static void main(String[] args) {
-        //clear();
+        clear();
         Database d = new Database("mydblp");
-        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(1), new RAString("Sergey Solonets"), new RAInteger(3)}));
-        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(2), new RAString("Hellos"), new RAInteger(3)}));
-        System.out.print(d.getTable("Alias").projection(new Expression[]{new Expression() {
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(5), new RAString("Sergey Solonets"), new RAInteger(3)}));
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(1), new RAString("Kisa7"), new RAInteger(3)}));
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(5), new RAString("Moon"), new RAInteger(2)}));
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(2), new RAString("Moon"), new RAInteger(3)}));
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(6), new RAString("Kisa72"), new RAInteger(3)}));
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(7), new RAString("Moons"), new RAInteger(2)}));
+        d.getTable("Alias").add(new Tuple(new Primitive[]{new RAInteger(3), new RAString("Moon"), new RAInteger(3)}));
+        System.out.print(d.getTable("Alias").sort(new Expression[]{new Expression() {
             @Override
             public String name() {
                 return "CID";
@@ -20,7 +25,7 @@ public class Main {
 
             @Override
             public Primitive expr() {
-                return get("ID").plus(get("PersonID"));
+                return get("Alias");
             }
         }, new Expression() {
             @Override
@@ -30,9 +35,9 @@ public class Main {
 
             @Override
             public Primitive expr() {
-                return get("Alias");
+                return get("ID");
             }
-        }}));
+        }}, new Expression.Order[]{Expression.Order.ASC, Expression.Order.DESC}));
         d.close();
         //d.getTable("Alias")
     }
