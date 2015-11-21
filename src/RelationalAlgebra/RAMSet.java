@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by ����� on 20.11.2015.
  */
-public class RAMSet {
+public class RAMSet extends Set{
     Header header;
     ArrayList<Tuple> tuples;
     public RAMSet(Header header)

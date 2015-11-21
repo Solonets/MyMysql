@@ -8,6 +8,7 @@ public abstract class Set {
     public abstract RAMSet projection(String[] columns);
     public abstract RAMSet limit(int n);
     public abstract RAMSet all();
+    @Override
     public String toString() {
         RAMSet s = limit(10);
         int numOfAttributes = s.getHeader().getColumns().size();
