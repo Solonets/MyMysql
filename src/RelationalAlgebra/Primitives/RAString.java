@@ -1,7 +1,9 @@
 package RelationalAlgebra.Primitives;
 
 import RelationalAlgebra.Primitive;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
@@ -32,6 +34,20 @@ public class RAString extends Primitive {
         } catch (Exception e)
         {
             e.printStackTrace();
+            return null;
+        }
+    }
+    public static RAString fromByteStream(ByteArrayInputStream stream)
+    {
+        try {
+            byte[] bytes = new byte[4];
+            stream.read(bytes);
+            int length = ByteBuffer.wrap(bytes).getInt();
+            byte[] str = new byte[length];
+            stream.read(bytes);
+            return new RAString(new String(bytes));
+        } catch (Exception e)
+        {
             return null;
         }
     }

@@ -1,6 +1,7 @@
 package Storage;
 
-import RelationalAlgebra.Tuple;
+import RelationalAlgebra.*;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class Page {
     int id;
     int next;
     int records;
+    int currentSlot;
     long freeSpace;
     ArrayList<Long> offsets;
     Database db;
@@ -21,12 +23,14 @@ public class Page {
         this.next = next;
         this.records = 0;
         this.freeSpace = 4;
+        this.currentSlot = 0;
         this.offsets = new ArrayList<>();
     }
     public void clean()
     {
         db.seekToPage(id);
         db.writeInt(next);
+        this.currentSlot = 0;
         for (int i = 0; i < db.getPageSize() - 12; i++)
         {
             db.writeByte(0);
@@ -69,7 +73,27 @@ public class Page {
         db.writeInt(records);
         return true;
     }
+    public Tuple fetch(RelationalAlgebra.Header h)
+    {
+        if (currentSlot >= this.offsets.size())
+        {
+            return null;
+        }
+        db.seekToPage(id, Database.Location.START, this.offsets.get(currentSlot).intValue());
+        byte[] blob = db.readDynamicBlob();
+        Tuple t = Tuple.fromByteStream(new ByteInputStream(blob, blob.length),h);
+        currentSlot++;
+        return t;
+    }
+    public void restore()
+    {
+        currentSlot = 0;
+    }
     public int getId() {
         return id;
+    }
+
+    public int getNext() {
+        return next;
     }
 }

@@ -137,6 +137,18 @@ public class Table extends Set {
     public RAMSet limit(int n) {
         int cur = startPage;
         RAMSet set = new RAMSet(header.toRA());
+        Tuple t = null;
+        int i = 0;
+        while (cur != -1 && i < n)
+        {
+            Page page = db.loadPage(cur);
+            while(i < n && (t = page.fetch(header.toRA())) != null)
+            {
+                set.add(t);
+                i++;
+            }
+            cur = page.getNext();
+        }
         return set;
     }
 }

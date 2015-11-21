@@ -1,5 +1,10 @@
 package RelationalAlgebra;
 
+import RelationalAlgebra.Primitives.RAInteger;
+import RelationalAlgebra.Primitives.RAReal;
+import RelationalAlgebra.Primitives.RAString;
+
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -64,5 +69,25 @@ public class Tuple {
             e.printStackTrace();
             return null;
         }
+    }
+    public static Tuple fromByteStream(ByteArrayInputStream stream, Header h)
+    {
+        Tuple t = new Tuple();
+        for (Column c: h.getColumns())
+        {
+            switch (c.getType())
+            {
+                case INT:
+                    t.add(RAInteger.fromByteStream(stream));
+                    break;
+                case REAL:
+                    t.add(RAReal.fromByteStream(stream));
+                    break;
+                case STRING:
+                    t.add(RAString.fromByteStream(stream));
+                    break;
+            }
+        }
+        return t;
     }
 }

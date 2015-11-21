@@ -1,7 +1,9 @@
 package RelationalAlgebra.Primitives;
 
 import RelationalAlgebra.Primitive;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
+import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
 
 /**
@@ -25,5 +27,17 @@ public class RAReal extends Primitive {
     @Override
     public byte[] getDump() {
         return ByteBuffer.allocate(4).putDouble(value).array();
+    }
+    public static RAReal fromByteStream(ByteArrayInputStream stream)
+    {
+        try {
+            byte[] bytes = new byte[4];
+            stream.read(bytes);
+            return new RAReal(ByteBuffer.wrap(bytes).getDouble());
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 }

@@ -55,6 +55,18 @@ public class Database {
         dataOffset = this.tell();
         //System.out.print(dataOffset);
     }
+    public byte[] readDynamicBlob()
+    {
+        try {
+            int length = this.readInt();
+            byte[] bytes = new byte[length];
+            f.read(bytes);
+            return bytes;
+        } catch (Exception e)
+        {
+            return null;
+        }
+    }
     public int getPageSize() {
         return pageSize;
     }

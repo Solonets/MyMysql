@@ -1,7 +1,9 @@
 package RelationalAlgebra.Primitives;
 
 import RelationalAlgebra.Primitive;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
+import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
 
 /**
@@ -26,5 +28,17 @@ public class RAInteger extends Primitive {
     @Override
     public byte[] getDump() {
         return ByteBuffer.allocate(4).putInt(value).array();
+    }
+    public static RAInteger fromByteStream(ByteArrayInputStream stream)
+    {
+        try {
+            byte[] bytes = new byte[4];
+            stream.read(bytes);
+            return new RAInteger(ByteBuffer.wrap(bytes).getInt());
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 }
