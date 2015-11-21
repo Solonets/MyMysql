@@ -45,18 +45,22 @@ public abstract class Set {
         Tuple tuple;
         Column column;
         Header header;
+        Primitive.Type[] types = new Primitive.Type[expressions.length];
         Column[] columns = new Column[expressions.length];
         ArrayList<Tuple> tuples = new ArrayList<Tuple>();
         for(int i = 0; i < set.getTuples().size(); i++) {
             tuple = new Tuple();
             for(int j = 0; j < expressions.length; j++) {
                 p = expressions[j].expr(set.getHeader(), set.getTuples().get(i));
+                if(i == 0) {
+                    types[j] = p.getType();
+                }
                 tuple.add(p);
             }
             tuples.add(tuple);
         }
         for(int i = 0; i < expressions.length; i++) {
-            column = new Column(expressions[i].name(), Primitive.Type.STRING);
+            column = new Column(expressions[i].name(), types[i]);
             columns[i] = column;
         }
         header = new Header(columns);
