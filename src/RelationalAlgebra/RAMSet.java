@@ -60,6 +60,9 @@ public class RAMSet extends Set{
 
     public RAMSet limit(int n) {
         RAMSet set = new RAMSet(getHeader());
+        if (n > tuples.size()) {
+            return this;
+        }
         for(int i = 0; i < n; i++) {
             set.getTuples().add(getTuples().get((i)));
         }
