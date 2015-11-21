@@ -1,11 +1,12 @@
 package RelationalAlgebra;
 
+import java.util.ArrayList;
+
 /**
  * Created by Наська on 21.11.2015.
  */
 public abstract class Set {
     public abstract boolean add(Tuple t);
-    public abstract RAMSet projection(String[] columns);
     public abstract RAMSet limit(int n);
     public abstract RAMSet all();
     @Override
@@ -37,4 +38,30 @@ public abstract class Set {
         return set;
      }
     public abstract RAMSet selection(Condition condition);
+
+    public RAMSet projection(Expression[] expressions) {
+        RAMSet set = all();
+        Primitive p;
+        Tuple tuple;
+        Column column;
+        Header header;
+        Column[] columns = new Column[expressions.length];
+        ArrayList<Tuple> tuples = new ArrayList<Tuple>();
+        for(int i = 0; i < set.getTuples().size(); i++) {
+            for(int j = 0; j < expressions.length; j++) {
+                tuple = new Tuple();
+                p = expressions[j].expr(set.getHeader(), set.getTuples().get(i));
+                tuple.add(p);
+                tuples.add(tuple);
+            }
+        }
+        for(int i = 0; i < expressions.length; i++) {
+            column = new Column(expressions[i].name(), Primitive.Type.STRING);
+            columns[i] = column;
+        }
+        header = new Header(columns);
+        set = new RAMSet(header);
+        set.setTuples(tuples);
+        return set;
+    }
 }

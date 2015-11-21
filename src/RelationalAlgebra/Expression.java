@@ -18,5 +18,5 @@ public abstract class Expression {
         return null;
     }
     public abstract String name();
-    public abstract Primitive expr();
+    public abstract Primitive expr(Header header, Tuple tuple);
 }

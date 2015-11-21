@@ -80,34 +80,5 @@ public class RAMSet extends Set{
         return maxLength;
     }
 
-    public RAMSet projection(String[] columns) {
-        RAMSet set;
-        Column column;
-        Tuple tuple;
-        Header resHeader;
-        ArrayList<Tuple> resTuples = new ArrayList<Tuple>();
-        ArrayList<Integer> indexes = new ArrayList<Integer>();
-        Column[] resColumns = new Column[columns.length];
-        for(int i = 0; i < columns.length; i++) {
-            for(int j = 0; j < header.getColumns().size(); j++) {
-                Column resColumn = header.getColumns().get(j);
-                if(columns[i].equals(resColumn.getName())) {
-                    column = new Column(resColumn.getName(), resColumn.getType());
-                    resColumns[j] = column;
-                    indexes.add(j);
-                }
-            }
-        }
-        for(int i = 0; i < tuples.size(); i++) {
-            tuple = new Tuple();
-            for(int j = 0; j < indexes.size(); j++) {
-                tuple.add(tuples.get(i).get(indexes.get(j)));
-            }
-            resTuples.add(tuple);
-        }
-        resHeader = new Header(resColumns);
-        set = new RAMSet(resHeader);
-        set.setTuples(resTuples);
-        return set;
-    }
+
 }
