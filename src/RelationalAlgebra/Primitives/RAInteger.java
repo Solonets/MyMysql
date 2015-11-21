@@ -26,6 +26,24 @@ public class RAInteger extends Primitive {
     }
 
     @Override
+    public boolean isTrue() {
+        return value != 0;
+    }
+    public int getValue()
+    {
+        return value;
+    }
+    @Override
+    public boolean greater(Primitive other) {
+        return this.value > ((RAInteger)other).getValue();
+    }
+
+    @Override
+    public Primitive plus(Primitive other) {
+        return new RAInteger(this.value + ((RAInteger)other).getValue());
+    }
+
+    @Override
     public byte[] getDump() {
         return ByteBuffer.allocate(4).putInt(value).array();
     }

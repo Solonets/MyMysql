@@ -24,6 +24,25 @@ public class RAReal extends Primitive {
     public Type getType() {
         return Type.REAL;
     }
+
+    @Override
+    public boolean isTrue() {
+        return value != 0;
+    }
+    public double getValue()
+    {
+        return value;
+    }
+    @Override
+    public boolean greater(Primitive other) {
+        return value > ((RAReal) other).getValue();
+    }
+
+    @Override
+    public Primitive plus(Primitive other) {
+        return new RAReal(value + ((RAReal) other).getValue());
+    }
+
     @Override
     public byte[] getDump() {
         return ByteBuffer.allocate(4).putDouble(value).array();

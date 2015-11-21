@@ -26,5 +26,12 @@ public abstract class Primitive {
     }
     public abstract String getDisplayedValue();
     public abstract Type getType();
+    public abstract boolean isTrue();
+    public abstract boolean greater(Primitive other);
+    public boolean less(Primitive other) {return other.greater(this);}
+    public boolean equals(Primitive other) {return !other.greater(this) && !greater(other);}
+    public boolean greaterOrEquals(Primitive other) {return !other.less(this);}
+    public boolean lessOrEquals(Primitive other) {return !other.greater(this);}
+    public abstract Primitive plus(Primitive other);
     public abstract byte[] getDump();
 }

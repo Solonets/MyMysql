@@ -25,6 +25,25 @@ public class RAString extends Primitive {
     public Type getType() {
         return Type.STRING;
     }
+
+    @Override
+    public boolean isTrue() {
+        return !value.equals("");
+    }
+    public String getValue()
+    {
+        return value;
+    }
+    @Override
+    public boolean greater(Primitive other) {
+        return value.compareTo(((RAString)other).getValue()) > 0;
+    }
+
+    @Override
+    public Primitive plus(Primitive other) {
+        return new RAString(value + ((RAString)other).getValue());
+    }
+
     @Override
     public byte[] getDump() {
         try {
