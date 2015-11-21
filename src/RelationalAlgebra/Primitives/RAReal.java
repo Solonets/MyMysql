@@ -37,7 +37,8 @@ public class RAReal extends Primitive {
     public boolean greater(Primitive other) {
         return value > ((RAReal) other).getValue();
     }
-
+    @Override
+    public boolean equals(double s) {return value == s;}
     @Override
     public Primitive plus(Primitive other) {
         return new RAReal(value + ((RAReal) other).getValue());

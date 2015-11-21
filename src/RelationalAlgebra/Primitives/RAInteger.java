@@ -37,7 +37,8 @@ public class RAInteger extends Primitive {
     public boolean greater(Primitive other) {
         return this.value > ((RAInteger)other).getValue();
     }
-
+    @Override
+    public boolean equals(int s) {return value == s;}
     @Override
     public Primitive plus(Primitive other) {
         return new RAInteger(this.value + ((RAInteger)other).getValue());

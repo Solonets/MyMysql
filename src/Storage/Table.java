@@ -1,9 +1,6 @@
 package Storage;
 
-import RelationalAlgebra.Expression;
-import RelationalAlgebra.RAMSet;
-import RelationalAlgebra.Set;
-import RelationalAlgebra.Tuple;
+import RelationalAlgebra.*;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
@@ -157,7 +154,7 @@ public class Table extends Set {
     }
 
     @Override
-    public RAMSet selection(Expression condition) {
+    public RAMSet selection(Condition condition) {
         int cur = startPage;
         RelationalAlgebra.Header h = header.toRA();
         RAMSet set = new RAMSet(h);

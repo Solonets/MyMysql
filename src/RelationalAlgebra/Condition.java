@@ -3,7 +3,7 @@ package RelationalAlgebra;
 /**
  * Created by Булат on 21.11.2015.
  */
-public abstract class Expression {
+public abstract class Condition {
     Header header;
     Tuple tuple;
     public Primitive get(String name)
@@ -17,6 +17,14 @@ public abstract class Expression {
         }
         return null;
     }
-    public abstract String name();
-    public abstract Primitive expr();
+    public abstract boolean expr();
+    public boolean match(Header header, Tuple tuple) {
+        this.header = header;
+        this.tuple = tuple;
+        if (!header.conform(tuple))
+        {
+            return false;
+        }
+        return expr();
+    }
 }

@@ -45,11 +45,11 @@ public class RAMSet extends Set{
     }
 
     @Override
-    public RAMSet selection(Expression condition) {
+    public RAMSet selection(Condition condition) {
         ArrayList<Tuple> resTuples = new ArrayList<Tuple>();
         RAMSet set;
         for(int i = 0; i < tuples.size(); i++) {
-            if(condition.match(getHeader(), getTuples().get(i)) == true) {
+            if(condition.match(getHeader(), getTuples().get(i))) {
                 resTuples.add(getTuples().get(i));
             }
         }

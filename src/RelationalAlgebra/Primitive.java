@@ -34,4 +34,8 @@ public abstract class Primitive {
     public boolean lessOrEquals(Primitive other) {return !other.greater(this);}
     public abstract Primitive plus(Primitive other);
     public abstract byte[] getDump();
+
+    public boolean equals(String s) {return false;}
+    public boolean equals(int s) {return false;}
+    public boolean equals(double s) {return false;}
 }
