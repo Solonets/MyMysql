@@ -9,21 +9,21 @@ public abstract class Set {
     public abstract RAMSet limit(int n);
     public String toString() {
         RAMSet s = limit(10);
-            int numOfAttributes = s.getHeader().getColumns().size();
-            Integer[] maxLength = new Integer[numOfAttributes];
-            String resString = null;
-            for(int i = 0; i < s.getHeader().getColumns().size(); i++) {
-                String name = s.getHeader().getColumns().get(i).getName();
-                resString = name;
-                maxLength[i] = s.findMaxWordLength(i);
-                for(int j = name.length(); j < maxLength[i]; j++) {
-                    resString += " ";
-                }
+        int numOfAttributes = s.getHeader().getColumns().size();
+        Integer[] maxLength = new Integer[numOfAttributes];
+        String resString = null;
+        for(int i = 0; i < s.getHeader().getColumns().size(); i++) {
+            String name = s.getHeader().getColumns().get(i).getName();
+            resString = name;
+            maxLength[i] = s.findMaxWordLength(i);
+            for(int j = name.length(); j < maxLength[i]; j++) {
+                resString += " ";
             }
-            resString += "\n";
-            for(int i = 0; i < s.getTuples().size(); i++) {
-                resString += s.getTuples().get(i).showTuple(maxLength);
-            }
-            return resString;
+        }
+        resString += "\n";
+        for(int i = 0; i < s.getTuples().size(); i++) {
+            resString += s.getTuples().get(i).showTuple(maxLength);
+        }
+        return resString;
     }
 }

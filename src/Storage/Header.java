@@ -39,7 +39,10 @@ public class Header {
         }
         return true;
     }
-
+    RelationalAlgebra.Header toRA()
+    {
+        return new RelationalAlgebra.Header(columns.toArray(new RelationalAlgebra.Column[columns.size()]));
+    }
     public byte[] getMetaData() {
         try {
             ByteArrayOutputStream buf = new ByteArrayOutputStream();

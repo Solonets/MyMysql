@@ -53,7 +53,7 @@ public class Database {
             this.tables.add(t);
         }
         dataOffset = this.tell();
-        System.out.print(dataOffset);
+        //System.out.print(dataOffset);
     }
     public int getPageSize() {
         return pageSize;
