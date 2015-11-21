@@ -2,6 +2,9 @@ package Storage;
 
 import RelationalAlgebra.Primitive;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
+
 /**
  * Created by ����� on 20.11.2015.
  */
@@ -35,6 +38,21 @@ public class Column extends RelationalAlgebra.Column {
         super(name, type);
         this.isAutoincrement = isAutoincrement;
         this.isIndexed = isIndexed;
+    }
+    public byte[] getMetaData() {
+        try {
+            ByteArrayOutputStream buf = new ByteArrayOutputStream();
+            buf.write(ByteBuffer.allocate(4).putInt(getName().length()).array());
+            buf.write(getName().getBytes());
+            buf.write(getType().getId());
+            buf.write(isAutoincrement ? 1 : 0);
+            buf.write(isIndexed ? 1 : 0);
+            return buf.toByteArray();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
 

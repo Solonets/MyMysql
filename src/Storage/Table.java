@@ -1,5 +1,8 @@
 package Storage;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
+
 /**
  * Created by ����� on 20.11.2015.
  */
@@ -9,6 +12,16 @@ public class Table {
     private int lastAutoincrement = 0;
     private int startPage;
     private int curPage;
+    private long startPagePos = -1;
+
+    public long getStartPagePos() {
+        return startPagePos;
+    }
+
+    public void setStartPagePos(long startPagePos) {
+        this.startPagePos = startPagePos;
+    }
+
 
     public int getCurPage() {
         return curPage;
@@ -58,7 +71,20 @@ public class Table {
         this.curPage = curPage;
     }
 
-    public String getMetaData() {
-        return name + " " + lastAutoincrement + " " + startPage + " " + curPage + " " + header.getMetaData() + " $ ";
+    public byte[] getMetaData() {
+        try {
+            ByteArrayOutputStream buf = new ByteArrayOutputStream();
+            buf.write(ByteBuffer.allocate(4).putInt(name.length()).array());
+            buf.write(name.getBytes());
+            buf.write(ByteBuffer.allocate(4).putInt(startPage).array());
+            buf.write(ByteBuffer.allocate(4).putInt(curPage).array());
+            buf.write(ByteBuffer.allocate(4).putInt(lastAutoincrement).array());
+            buf.write(header.getMetaData());
+            return buf.toByteArray();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -1,7 +1,6 @@
 import RelationalAlgebra.*;
 import RelationalAlgebra.Primitives.*;
-import Storage.DatabaseBuilder;
-import Storage.Table;
+import Storage.*;
 import Storage.Column;
 import Storage.Header;
 
@@ -130,5 +129,6 @@ public class Main {
                 new Column("Photo", Primitive.Type.STRING, false, false)
         }), 0, -1, -1));
         db.writeMetaData();
+        Database d = new Database("mydblp");
     }
 }

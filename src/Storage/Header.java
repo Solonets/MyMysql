@@ -2,6 +2,8 @@ package Storage;
 
 import RelationalAlgebra.Tuple;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -38,16 +40,18 @@ public class Header {
         return true;
     }
 
-    public String getMetaData() {
-        String meta = new String();
-        for(int i = 0; i < columns.size(); i++) {
-            Column column = columns.get(i);
-            meta += columns.size() + " " +
-                        column.getName() + " " +
-                            column.getType() + " " +
-                                column.isAutoincrement() + " " +
-                                    column.isIndexed() + " ";
+    public byte[] getMetaData() {
+        try {
+            ByteArrayOutputStream buf = new ByteArrayOutputStream();
+            buf.write(ByteBuffer.allocate(4).putInt(columns.size()).array());
+            for (Column c: columns) {
+                buf.write(c.getMetaData());
+            }
+            return buf.toByteArray();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
         }
-        return meta;
     }
 }
