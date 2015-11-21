@@ -1,12 +1,16 @@
 package Storage;
 
+import RelationalAlgebra.RAMSet;
+import RelationalAlgebra.Set;
+import RelationalAlgebra.Tuple;
+
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
 /**
  * Created by ����� on 20.11.2015.
  */
-public class Table {
+public class Table extends Set {
     private String name;
     private Header header;
     private int lastAutoincrement = 0;
@@ -86,5 +90,20 @@ public class Table {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    @Override
+    public boolean add(Tuple t) {
+        return false;
+    }
+
+    @Override
+    public RAMSet projection(String[] columns) {
+        return null;
     }
 }

@@ -7,7 +7,6 @@ import Storage.Header;
 import java.util.jar.Attributes;
 
 public class Main {
-
     public static void main(String[] args) {
         DatabaseBuilder db = new DatabaseBuilder("mydblp");
         db.add(new Table("Alias", new Header(new Column[]{
