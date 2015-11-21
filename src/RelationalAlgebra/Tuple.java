@@ -26,6 +26,20 @@ public class Tuple {
         str.append(")");
         return str.toString();
     }
+
+    public String showTuple(Integer[] maxLength) {
+        String resString = null;
+        for(int i = 0; i < primitives.size(); i++) {
+            String value = primitives.get(i).getDisplayedValue();
+            resString += value;
+            for(int j = value.length(); j < maxLength[i]; j++) {
+                resString += " ";
+            }
+        }
+        resString += "\n";
+        return resString;
+    }
+
     public int size()
     {
         return primitives.size();

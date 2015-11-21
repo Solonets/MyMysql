@@ -39,17 +39,44 @@ public class RAMSet {
         }
         return false;
     }
-    public String toString()
-    {
-        StringBuilder str = new StringBuilder("{");
-        for (Tuple a: tuples)
-        {
-            str.append(a);
-            str.append(", ");
+    public String toString() {
+        int maxLength;
+        String resultString = null;
+        for(int i = 0; i < header.getColumns().size(); i++) {
+            String name = header.getColumns().get(i).getName();
+            resultString = name;
+            maxLength = findMaxWordLength(i);
+            for(int j = name.length(); j < maxLength; j++) {
+                resultString += " ";
+            }
         }
-        str.delete(str.length() - 2, str.length());
-        str.append("}");
-        return str.toString();
+        resultString += "\n";
+        return resultString;
+    }
+
+
+    public String showRAMSet() {
+        String resString = header.toString();
+        int numOfAttributes = header.getColumns().size();
+        Integer[] maxLength = new Integer[numOfAttributes];
+        for(int i = 0 ; i < numOfAttributes; i++) {
+            maxLength[i] = findMaxWordLength(i);
+        }
+        for(int i = 0; i < tuples.size(); i++) {
+            resString += tuples.get(i).showTuple(maxLength);
+        }
+        return resString;
+    }
+
+    public int findMaxWordLength(int i) {
+        int maxLength = header.getColumns().get(i).getName().length();
+        for(int j = 0; j < tuples.size(); j++) {
+            int length = tuples.get(j).get(i).getDisplayedValue().length();
+            if(length > maxLength) {
+                maxLength = length;
+            }
+        }
+        return maxLength;
     }
 
     public RAMSet projection(String[] columns) {
