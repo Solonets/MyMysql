@@ -31,4 +31,9 @@ public abstract class Set {
         }
         return resString;
     }
+
+    public RAMSet sort(String[] attributes, boolean[] isIncrementing) {
+        RAMSet set = all();
+        return set;
+     }
 }
